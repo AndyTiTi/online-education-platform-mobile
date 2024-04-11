@@ -1,0 +1,11 @@
+{
+  "watch": [
+    "mock/"
+  ],
+  "ext": "js",
+  "ignore": [
+    "**/*.spec.js",
+    "**/*.test.js"
+  ],
+  "delay": "2500"
+}
