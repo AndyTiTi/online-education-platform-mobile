@@ -13,13 +13,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "strict": true
   },
-  "include": ["src"],
+  "include": ["./"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
