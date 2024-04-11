@@ -1,29 +1,58 @@
-import reactLogo from './assets/react.svg';
+import { useState } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
+import { FIND, UPDATE } from './graphql/demo';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [name, setName] = useState('');
+  const [desc, setDesc] = useState('');
+  const { loading, data } = useQuery(FIND, {
+    variables: {
+      id: '1e552089-c4ba-435e-b31f-141ab07304d5',
+    },
+  });
+  const [update] = useMutation(UPDATE);
+  const onChangeNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+  const onChangeDescHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDesc(e.target.value);
+  };
+  const onClickHandler = () => {
+    update({
+      variables: {
+        id: '1e552089-c4ba-435e-b31f-141ab07304d5',
+        params: {
+          name,
+          desc,
+          avatar: 'https://avatars.githubusercontent.com/u/10510251?v=4',
+        },
+      },
+    });
+  };
   return (
-    <>
-      <div>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <p>
-          Edit
-          {' '}
-          <code>src/App.tsx</code>
-          {' '}
-          and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+    <div>
+      <p>
+        data:
+        {JSON.stringify(data)}
       </p>
-    </>
+      <p>
+        loading:
+        {loading}
+      </p>
+      <p>
+        name:
+        <input type="text" onChange={onChangeNameHandler} />
+      </p>
+      <p>
+        desc:
+        <input type="text" onChange={onChangeDescHandler} />
+      </p>
+      <button type="button" onClick={onClickHandler}>
+        更新用户信息
+      </button>
+    </div>
   );
-}
+};
 
 export default App;
