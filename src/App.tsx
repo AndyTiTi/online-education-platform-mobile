@@ -1,31 +1,26 @@
-import { useState } from 'react';
+/* eslint-disable import/no-extraneous-dependencies */
 import { useQuery, useMutation } from '@apollo/client';
+import {
+  Form, Input, Button, ImageUploader,
+} from 'antd-mobile';
 import { FIND, UPDATE } from './graphql/demo';
+import { useUploadOSS } from './hooks/useUploadOSS';
 import './App.css';
 
 const App = () => {
-  const [name, setName] = useState('');
-  const [desc, setDesc] = useState('');
+  const uploadHandler = useUploadOSS();
   const { loading, data } = useQuery(FIND, {
     variables: {
       id: '1e552089-c4ba-435e-b31f-141ab07304d5',
     },
   });
   const [update] = useMutation(UPDATE);
-  const onChangeNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
-  const onChangeDescHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDesc(e.target.value);
-  };
-  const onClickHandler = () => {
+  const onClickHandler = (v:any) => {
     update({
       variables: {
         id: '1e552089-c4ba-435e-b31f-141ab07304d5',
         params: {
-          name,
-          desc,
-          avatar: 'https://avatars.githubusercontent.com/u/10510251?v=4',
+          ...v,
         },
       },
     });
@@ -40,17 +35,31 @@ const App = () => {
         loading:
         {loading}
       </p>
-      <p>
-        name:
-        <input type="text" onChange={onChangeNameHandler} />
-      </p>
-      <p>
-        desc:
-        <input type="text" onChange={onChangeDescHandler} />
-      </p>
-      <button type="button" onClick={onClickHandler}>
-        更新用户信息
-      </button>
+      <Form
+        layout="horizontal"
+        onFinish={onClickHandler}
+        footer={(
+          <Button block type="submit" color="primary" onClick={onClickHandler}>
+            提交
+          </Button>
+        )}
+      >
+        <Form.Item name="name" label="姓名">
+          <Input />
+        </Form.Item>
+        <Form.Item name="desc" label="描述">
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="actor"
+          label="头像"
+        >
+          <ImageUploader upload={uploadHandler} />
+        </Form.Item>
+        {/* <button type="button" onClick={onClickHandler}>
+          更新用户信息
+        </button> */}
+      </Form>
     </div>
   );
 };

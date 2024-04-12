@@ -10,6 +10,8 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
     'import/prefer-default-export': 0,
     'react-hooks/exhaustive-deps': 1,
+    'react/jsx-uses-react': 'error',
+    'react/jsx-uses-vars': 'error',
     'linebreak-style': [0, 'error', 'windows'], // Expected linebreaks to be 'LF' but found 'CRLF'.
   },
   parser: require.resolve('@typescript-eslint/parser'),

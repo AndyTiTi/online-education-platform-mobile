@@ -28,7 +28,7 @@ const typeDefs = `#graphql
   input UserInput {
     name: String!
     desc: String!
-    avatar: String!
+    avatar: String
   }
 `;
 
