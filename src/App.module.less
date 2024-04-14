@@ -1,0 +1,31 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+@red: rgb(255, 208, 0);
+.container{
+  margin-top: 50px;
+}
+.newForm{
+  composes: form from './common.module.less';
+  border: 1px solid @red;
+}
+// :local(.container) {
+//   width: 100%;
+//   & :local(.newForm) {
+//     margin: 20px;
+//   }
+// }
+.serif-font {
+  font-family: Georgia, serif;
+}
+
+.display {
+  composes: serif-font;
+  font-size: 30px;
+  line-height: 35px;
+  border: 2px solid var(--primary-color);
+}

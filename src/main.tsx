@@ -3,6 +3,7 @@ import { ApolloProvider } from '@apollo/client';
 import { loadErrorMessages, loadDevMessages } from '@apollo/client/dev';
 import { client } from './utils/apollo';
 import App from './App';
+import './theme.css';
 import './index.css';
 
 if (process.env.NODE_ENV === 'development') {

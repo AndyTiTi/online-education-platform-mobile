@@ -1,19 +1,19 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import {
   Form, Input, Button, ImageUploader,
 } from 'antd-mobile';
-import { FIND, UPDATE } from './graphql/demo';
+import { UPDATE } from './graphql/demo';
 import { useUploadOSS } from './hooks/useUploadOSS';
-import './App.css';
+import styles from './App.module.less';
 
 const App = () => {
   const uploadHandler = useUploadOSS();
-  const { loading, data } = useQuery(FIND, {
-    variables: {
-      id: '1e552089-c4ba-435e-b31f-141ab07304d5',
-    },
-  });
+  // const { loading, data } = useQuery(FIND, {
+  //   variables: {
+  //     id: '1e552089-c4ba-435e-b31f-141ab07304d5',
+  //   },
+  // });
   const [update] = useMutation(UPDATE);
   const onClickHandler = (v:any) => {
     update({
@@ -26,25 +26,18 @@ const App = () => {
     });
   };
   return (
-    <div>
-      <p>
-        data:
-        {JSON.stringify(data)}
-      </p>
-      <p>
-        loading:
-        {loading}
-      </p>
+    <div className={styles.container}>
       <Form
+        className={styles.newForm}
         layout="horizontal"
         onFinish={onClickHandler}
         footer={(
           <Button block type="submit" color="primary" onClick={onClickHandler}>
             提交
           </Button>
-        )}
+      )}
       >
-        <Form.Item name="name" label="姓名">
+        <Form.Item className={styles.display} name="name" label="姓名">
           <Input />
         </Form.Item>
         <Form.Item name="desc" label="描述">
@@ -57,9 +50,17 @@ const App = () => {
           <ImageUploader upload={uploadHandler} />
         </Form.Item>
         {/* <button type="button" onClick={onClickHandler}>
-          更新用户信息
-        </button> */}
+        更新用户信息
+      </button> */}
       </Form>
+      {/* <p>
+        data:
+        {JSON.stringify(data)}
+      </p>
+      <p>
+        loading:
+        {loading}
+      </p> */}
     </div>
   );
 };
